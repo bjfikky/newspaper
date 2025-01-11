@@ -17,6 +17,6 @@ public class AuthorsController(IAuthorsService authorsService) : Controller
     // GET
     public async Task<IActionResult> Index(int id)
     {
-        return Ok(await authorsService.GetAuthorsAsync());
+        return Ok(await authorsService.GetAuthorByIdAsync(id));
     }
 }
