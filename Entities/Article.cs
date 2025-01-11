@@ -18,7 +18,8 @@ public class Article
     
     public DateTime? LastEditDate { get; set; }
 
-    public List<Author> Authors { get; set; }
+    [Required]
+    public required List<Author> Authors { get; set; }
 
     [MaxLength(250)]
     public string? Section { get; set; }
