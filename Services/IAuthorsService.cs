@@ -7,7 +7,9 @@ public interface IAuthorsService
 {
     Task AddAuthorsAsync(List<Author> authors);
     Task<List<AuthorDto>> GetAuthorsAsync();
-    Task AddAuthorAsync(Author author);
+    Task<Author> AddAuthorAsync(Author author);
+    Task DeleteAuthorAsync(int id);
+    Task UpdateAuthorAsync(Author author);
     Task<Author?> GetAuthorByIdAsync(int id);
     Task<List<Author>> SearchAuthorByNameAsync(string name);
 }
