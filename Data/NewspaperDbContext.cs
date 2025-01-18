@@ -20,4 +20,5 @@ public class NewspaperDbContext(DbContextOptions<NewspaperDbContext> options)
 
     public DbSet<Article> Articles { get; set; }
     public DbSet<Author> Authors { get; set; }
+    public DbSet<Topic> Topics { get; set; }
 }

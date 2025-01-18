@@ -37,6 +37,21 @@ namespace Newspaper.Migrations
                     b.ToTable("ArticleAuthor");
                 });
 
+            modelBuilder.Entity("ArticleTopic", b =>
+                {
+                    b.Property<int>("ArticlesId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("TopicsId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("ArticlesId", "TopicsId");
+
+                    b.HasIndex("TopicsId");
+
+                    b.ToTable("ArticleTopic");
+                });
+
             modelBuilder.Entity("Newspaper.Entities.Article", b =>
                 {
                     b.Property<int>("Id")
@@ -60,10 +75,6 @@ namespace Newspaper.Migrations
 
                     b.Property<DateTime?>("PublishDate")
                         .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("Section")
-                        .HasMaxLength(250)
-                        .HasColumnType("character varying(250)");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -98,6 +109,29 @@ namespace Newspaper.Migrations
                     b.ToTable("Authors");
                 });
 
+            modelBuilder.Entity("Newspaper.Entities.Topic", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("character varying(250)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Topics");
+                });
+
             modelBuilder.Entity("ArticleAuthor", b =>
                 {
                     b.HasOne("Newspaper.Entities.Article", null)
@@ -109,6 +143,21 @@ namespace Newspaper.Migrations
                     b.HasOne("Newspaper.Entities.Author", null)
                         .WithMany()
                         .HasForeignKey("AuthorsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("ArticleTopic", b =>
+                {
+                    b.HasOne("Newspaper.Entities.Article", null)
+                        .WithMany()
+                        .HasForeignKey("ArticlesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Newspaper.Entities.Topic", null)
+                        .WithMany()
+                        .HasForeignKey("TopicsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
