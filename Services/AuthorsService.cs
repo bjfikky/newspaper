@@ -21,9 +21,31 @@ public class AuthorsService(NewspaperDbContext context) : IAuthorsService
             .ToListAsync();
     }
 
-    public async Task AddAuthorAsync(Author author)
+    public async Task<Author> AddAuthorAsync(Author author)
     {
         await context.Authors.AddAsync(author);
+        await context.SaveChangesAsync();
+        return author;
+    }
+
+    public async Task DeleteAuthorAsync(int id)
+    {
+        var author = await context.Authors.FindAsync(id);
+        if (author == null)
+        {
+            throw new Exception("Author not found");
+        }
+        context.Authors.Remove(author);
+        await context.SaveChangesAsync();
+    }
+
+    public async Task UpdateAuthorAsync(Author author)
+    {
+        if (await context.Authors.FindAsync(author.Id) == null)
+        {
+            throw new KeyNotFoundException($"Author with id {author.Id} not found");
+        }
+        context.Entry(author).State = EntityState.Modified;
         await context.SaveChangesAsync();
     }
 
