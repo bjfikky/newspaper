@@ -1,7 +1,9 @@
 using System.ComponentModel.DataAnnotations;
+using Microsoft.EntityFrameworkCore;
 
 namespace Newspaper.Entities;
 
+[Index(nameof(Name), IsUnique = true)]
 public class Topic
 {
     public int Id { get; set; }
