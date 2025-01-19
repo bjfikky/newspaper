@@ -44,7 +44,7 @@ public class AuthorsService(NewspaperDbContext context) : IAuthorsService
         {
             throw new KeyNotFoundException($"Author with id {author.Id} not found");
         }
-        context.Entry(author).State = EntityState.Modified;
+        context.Authors.Update(author);
         await context.SaveChangesAsync();
     }
 
