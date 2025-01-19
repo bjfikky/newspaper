@@ -12,12 +12,11 @@ public class AuthorsService(NewspaperDbContext context) : IAuthorsService
         throw new NotImplementedException();
     }
 
-    public async Task<List<AuthorDto>> GetAuthorsAsync()
+    public async Task<List<Author>> GetAuthorsAsync()
     {
         return await context.Authors
             .OrderBy(a => a.FirstName)
             .ThenBy(a => a.LastName)
-            .Select(a => new AuthorDto(a.Id, a.FirstName, a.LastName))
             .ToListAsync();
     }
 
@@ -33,7 +32,7 @@ public class AuthorsService(NewspaperDbContext context) : IAuthorsService
         var author = await context.Authors.FindAsync(id);
         if (author == null)
         {
-            throw new Exception("Author not found");
+            throw new KeyNotFoundException($"Author with id {id} not found");
         }
         context.Authors.Remove(author);
         await context.SaveChangesAsync();
