@@ -1,4 +1,3 @@
-using Microsoft.EntityFrameworkCore;
 using Newspaper.Data;
 using Newspaper.Services;
 
@@ -13,6 +12,7 @@ builder.Services.AddOpenApi();
 builder.Services.AddDbContext<NewspaperDbContext>();
 
 builder.Services.AddScoped<IAuthorsService, AuthorsService>();
+builder.Services.AddScoped<IArticlesService, ArticlesService>();
 
 var app = builder.Build();
 
