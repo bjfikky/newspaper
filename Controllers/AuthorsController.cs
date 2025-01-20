@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Newspaper.DTOs;
 using Newspaper.Entities;
-using Newspaper.Services;
+using Newspaper.Services.Interfaces;
 
 namespace Newspaper.Controllers;
 
