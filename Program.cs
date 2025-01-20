@@ -1,5 +1,6 @@
 using Newspaper.Data;
 using Newspaper.Services;
+using Newspaper.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +14,7 @@ builder.Services.AddDbContext<NewspaperDbContext>();
 
 builder.Services.AddScoped<IAuthorsService, AuthorsService>();
 builder.Services.AddScoped<IArticlesService, ArticlesService>();
+builder.Services.AddScoped<ITopicsService, TopicsService>();
 
 var app = builder.Build();
 
