@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
 
 namespace Newspaper.Entities;
@@ -11,5 +12,7 @@ public class Topic
     public required string Name { get; set; }
     [Required, MaxLength(250)]
     public string? Description { get; set; }
+    //TODO: remove and use DTO
+    [JsonIgnore]
     public List<Article>? Articles { get; set; } = [];
 }
