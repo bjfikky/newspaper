@@ -52,6 +52,12 @@ public class AuthorsService(NewspaperDbContext context) : IAuthorsService
     {
         return await context.Authors.FindAsync(id);
     }
+    
+    public async Task<List<Author>?> GetAuthorsByIdsAsync(List<int> ids)
+    {
+        return await context.Authors.Where(author => ids.Contains(author.Id))
+            .ToListAsync();
+    }
 
     public async Task<List<Author>> SearchAuthorByNameAsync(string name)
     {

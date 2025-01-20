@@ -11,5 +11,6 @@ public interface IAuthorsService
     Task DeleteAuthorAsync(int id);
     Task UpdateAuthorAsync(Author author);
     Task<Author?> GetAuthorByIdAsync(int id);
+    Task<List<Author>?> GetAuthorsByIdsAsync(List<int> ids);
     Task<List<Author>> SearchAuthorByNameAsync(string name);
 }
