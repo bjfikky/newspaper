@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Newspaper.Data;
 using Newspaper.Entities;
+using Newspaper.Services.Interfaces;
 
 namespace Newspaper.Services;
 

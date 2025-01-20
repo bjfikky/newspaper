@@ -1,15 +1,16 @@
 using Microsoft.EntityFrameworkCore;
 using Newspaper.Data;
-using Newspaper.DTOs;
 using Newspaper.Entities;
+using Newspaper.Services.Interfaces;
 
 namespace Newspaper.Services;
 
 public class AuthorsService(NewspaperDbContext context) : IAuthorsService
 {
-    public Task AddAuthorsAsync(List<Author> authors)
+    public async Task AddAuthorsAsync(List<Author> authors)
     {
-        throw new NotImplementedException();
+        await context.Authors.AddRangeAsync(authors);
+        await context.SaveChangesAsync();
     }
 
     public async Task<List<Author>> GetAuthorsAsync()

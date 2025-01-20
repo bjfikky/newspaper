@@ -1,6 +1,6 @@
 using Newspaper.Entities;
 
-namespace Newspaper.Services;
+namespace Newspaper.Services.Interfaces;
 
 public interface IArticlesService
 {
