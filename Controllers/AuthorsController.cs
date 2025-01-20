@@ -12,7 +12,10 @@ public class AuthorsController(IAuthorsService authorsService) : Controller
     [HttpGet]
     public async Task<IActionResult> GetAllAuthors()
     {
-        return Ok(await authorsService.GetAuthorsAsync());
+        var authors = await authorsService.GetAuthorsAsync();
+        var authorDto = authors
+            .Select(author => new AuthorDto(author.Id, author.FirstName, author.LastName)).ToList();
+        return Ok(authorDto);
     }
     
     [HttpGet("{id:int}")]

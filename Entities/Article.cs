@@ -21,6 +21,5 @@ public class Article
     [Required]
     public required List<Author> Authors { get; set; }
 
-    [MaxLength(250)]
-    public string? Section { get; set; }
+    public List<Topic>? Topics { get; set; } = [];
 }
