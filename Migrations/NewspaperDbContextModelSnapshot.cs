@@ -65,6 +65,10 @@ namespace Newspaper.Migrations
                         .HasMaxLength(500000)
                         .HasColumnType("character varying(500000)");
 
+                    b.Property<string>("ImageUrl")
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
+
                     b.Property<bool>("IsPublished")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("boolean")
@@ -75,6 +79,10 @@ namespace Newspaper.Migrations
 
                     b.Property<DateTime?>("PublishDate")
                         .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("SubTitle")
+                        .HasMaxLength(250)
+                        .HasColumnType("character varying(250)");
 
                     b.Property<string>("Title")
                         .IsRequired()

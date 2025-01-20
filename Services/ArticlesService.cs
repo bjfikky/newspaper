@@ -13,7 +13,7 @@ public class ArticlesService(NewspaperDbContext context) : IArticlesService
         return article;
     }
 
-    public async Task<Article?> GetArticleAsync(string id)
+    public async Task<Article?> GetArticleAsync(int id)
     {
         return await context.Articles.FindAsync(id);
     }
