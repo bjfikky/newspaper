@@ -29,6 +29,7 @@ public class AuthorsController(IAuthorsService authorsService) : Controller
     }
     
     [HttpPost]
+    // TODO: Role needed to be able to create an Author. An Admin Role
     public async Task<IActionResult> SaveAuthor(AuthorDto authorDto)
     {
         var author = new Author
@@ -41,6 +42,7 @@ public class AuthorsController(IAuthorsService authorsService) : Controller
     }
 
     [HttpDelete("{id:int}")]
+    // TODO: Role needed to be able to create an Author. An Admin Role
     public async Task<IActionResult> DeleteAuthor(int id)
     {
         var author = await authorsService.GetAuthorByIdAsync(id);
@@ -52,6 +54,7 @@ public class AuthorsController(IAuthorsService authorsService) : Controller
     }
 
     [HttpPut("{id:int}")]
+    // TODO: Role needed to be able to create an Author. An Admin Role
     public async Task<IActionResult> UpdateAuthor(int id, AuthorDto authorDto)
     {
         var author = await authorsService.GetAuthorByIdAsync(id);

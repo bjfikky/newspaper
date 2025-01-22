@@ -16,7 +16,10 @@ public class ArticlesService(NewspaperDbContext context) : IArticlesService
 
     public async Task<Article?> GetArticleAsync(int id)
     {
-        return await context.Articles.FindAsync(id);
+        return await context.Articles
+            .Include(a => a.Authors)
+            .Include(a => a.Topics)
+            .FirstOrDefaultAsync();
     }
 
     public async Task<List<Article>> GetAllArticlesAsync(string? topic, int? authorId, int page, int pageSize)

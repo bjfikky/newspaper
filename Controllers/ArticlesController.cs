@@ -37,7 +37,9 @@ public class ArticlesController(IArticlesService articlesService, IAuthorsServic
             article.Topics.Select(a => a.Id).ToList(),
             article.ImageUrl,
             article.Body,
-            article.IsPublished
+            article.IsPublished,
+            article.PublishDate,
+            article.LastEditDate
             );
         
         return Ok(articleDto);
@@ -68,5 +70,35 @@ public class ArticlesController(IArticlesService articlesService, IAuthorsServic
         
         article = await articlesService.AddArticleAsync(article);
         return Ok(article);
+    }
+
+    [HttpPut("{id:int}")]
+    public async Task<IActionResult> UpdateArticle(ArticleDto articleDto, int id)
+    {
+        var article = await articlesService.GetArticleAsync(id);
+        if (article == null)
+            return NotFound(new { message = "Article not found." });
+        
+        var topics = await topicsService.GetTopicsByIdsAsync(articleDto.TopicIds);
+        var authors = await authorsService.GetAuthorsByIdsAsync(articleDto.AuthorIds);
+        
+        article.Title = articleDto.Title;
+        article.SubTitle = articleDto.Subtitle;
+        article.Body = articleDto.Body;
+        article.ImageUrl = articleDto.ImageUrl;
+        
+        // Updating an article is how it can also be published
+        if (!article.IsPublished && articleDto.IsPublished)
+        {
+            article.PublishDate = DateTime.UtcNow;
+        }
+        article.IsPublished = articleDto.IsPublished;
+
+        article.LastEditDate = DateTime.UtcNow;
+        if (authors != null) article.Authors = authors;
+        if (topics != null) article.Topics = topics;
+        
+        await articlesService.UpdateArticleAsync(article);
+        return NoContent();
     }
 }
