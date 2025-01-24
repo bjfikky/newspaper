@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Newspaper.Data;
 using Newspaper.Entities;
+using Newspaper.Services.Interfaces;
 
 namespace Newspaper.Services;
 
@@ -13,9 +14,12 @@ public class ArticlesService(NewspaperDbContext context) : IArticlesService
         return article;
     }
 
-    public async Task<Article?> GetArticleAsync(string id)
+    public async Task<Article?> GetArticleAsync(int id)
     {
-        return await context.Articles.FindAsync(id);
+        return await context.Articles
+            .Include(a => a.Authors)
+            .Include(a => a.Topics)
+            .FirstOrDefaultAsync();
     }
 
     public async Task<List<Article>> GetAllArticlesAsync(string? topic, int? authorId, int page, int pageSize)

@@ -8,6 +8,9 @@ public class Article
     
     [Required, MaxLength(250)]
     public required string Title { get; set; }
+    
+    [MaxLength(250)]
+    public string? SubTitle { get; set; }
 
     [Required, MaxLength(500000)] 
     public required string Body { get; set; }
@@ -22,4 +25,7 @@ public class Article
     public required List<Author> Authors { get; set; }
 
     public List<Topic>? Topics { get; set; } = [];
+    
+    [MaxLength(500)]
+    public string? ImageUrl { get; set; }
 }
