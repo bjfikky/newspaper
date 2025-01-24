@@ -34,7 +34,7 @@ public class ArticlesController(IArticlesService articlesService, IAuthorsServic
             article.Title, 
             article.SubTitle, 
             article.Authors.Select(a => a.Id).ToList(),
-            article.Topics.Select(a => a.Id).ToList(),
+            article.Topics != null ? article.Topics.Select(a => a.Id).ToList() : [],
             article.ImageUrl,
             article.Body,
             article.IsPublished,
