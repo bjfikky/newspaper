@@ -101,4 +101,16 @@ public class ArticlesController(IArticlesService articlesService, IAuthorsServic
         await articlesService.UpdateArticleAsync(article);
         return NoContent();
     }
+
+    [HttpDelete("{id:int}")]
+    // TODO: Only an Admin should be able to delete a published Article. Author can delete if unpublished
+    public async Task<IActionResult> DeleteArticle(int id)
+    {
+        var article = await articlesService.GetArticleAsync(id);
+        if (article == null)
+            return NotFound(new { message = "Article not found." });
+        
+        await articlesService.DeleteArticleAsync(id);
+        return NoContent();
+    }
 }
